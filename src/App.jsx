@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./index.css";
 import Canvas from './Canvas';
 import Data from './Data';
+import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
+
+
+  useEffect(() => {
+    const locomotiveScroll = new LocomotiveScroll();
+  }, [])
+  
+
   return (
     <>
 

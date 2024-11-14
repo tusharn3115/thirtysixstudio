@@ -46,6 +46,8 @@ const Canvas = ({ details }) => {
 
     // Return the canvas element
     return <canvas
+        data-scroll
+        data-scroll-speed={(Math.random().toFixed(1))}
         ref={canvasRef}
         className='absolute'
         style={{
@@ -54,7 +56,7 @@ const Canvas = ({ details }) => {
             top: `${top}%`,
             left: `${left}%`,
             zIndex: `${zIndex}%`
-         }} // Styles for the canvas element
+        }} // Styles for the canvas element
         id="canvas" // ID for the canvas element
     ></canvas>;
 }
