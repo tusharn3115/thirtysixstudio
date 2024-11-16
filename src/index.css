@@ -10,3 +10,15 @@ body {
     /* background-color: #fd2c2a; */
     background-color: #000;
 }
+
+nav{
+    font-family: "General Sans";
+}
+
+.textcontainer{
+    font-family: "General Sans";
+}
+
+.logo{
+    font-family: "Doto";
+}
