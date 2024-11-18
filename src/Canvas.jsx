@@ -24,6 +24,12 @@ const Canvas = ({ details }) => {
                 setIndex({ value: Math.round(index.value) }) // Update the state with the current value
             }
         })
+
+        gsap.from(canvasRef.current, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.inOut"
+        })
     });
 
     // Effect to handle canvas drawing

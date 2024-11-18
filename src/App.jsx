@@ -1,20 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './index.css';
 import Canvas from './Canvas';
 import Data from './Data';
 import LocomotiveScroll from 'locomotive-scroll';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 const App = () => {
+
+  const[showCanvas, setShowCanvas] = useState(false);
+  const textRef = useRef(null);
+  const growingSpan = useRef(null);
+
   useEffect(() => {
     const locomotiveScroll = new LocomotiveScroll();
   }, []);
 
+  useGSAP(() => {
+    textRef.current.addEventListener("click", (e) => {
+      setShowCanvas(!showCanvas);
+
+      gsap.set(growingSpan.current, {
+        top: e.clientY,
+        left: e.clientX,
+      });
+
+      gsap.to(growingSpan.current, {
+        scale: 1000,
+        duration: 1.2,
+        ease: "power2.inOut",
+        // onComplete: () => {
+        //   gsap.set(growingSpan.current, {
+        //     scale: 0,
+        //     clearProps: "all",
+        //   })
+        // }
+      })
+    })
+  }, [showCanvas])
+
   return (
     <>
+    <span ref={growingSpan} className='growing rounded-full block fixed top-[-10%] left-0 w-5 h-5'></span>
       {/* Page 1 */}
-      <div className="relative w-full min-h-screen bg-white text-black">
+      <div className="relative w-full min-h-screen text-black">
         {/* Map through the first dataset and render canvases */}
-        {Data[0].map((canvasdets, index) => (
+        {showCanvas && Data[0].map((canvasdets, index) => (
           <Canvas key={index} details={canvasdets} />
         ))}
         
@@ -50,7 +81,7 @@ const App = () => {
 
           {/* Logo Section */}
           <div className="logo mt-16 px-1 py-3 border-b border-gray-200">
-            <h1 className="text-[11.1rem] font-extrabold tracking-tight">
+            <h1 ref={textRef} className="text-[11.1rem] cursor-pointer font-extrabold tracking-tight">
               Thirtysixstudio
             </h1>
           </div>
@@ -58,7 +89,7 @@ const App = () => {
       </div>
 
       {/* Page 2 */}
-      <div className="relative h-screen bg-white">
+      <div className="relative h-screen">
         {/* Map through the second dataset and render canvases */}
         {Data[1].map((canvasdets, index) => (
           <Canvas key={index} details={canvasdets} />
